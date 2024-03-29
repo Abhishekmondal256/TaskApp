@@ -1,0 +1,66 @@
+.user-task-container {
+    width: 80%; /* Set desired width */
+    max-width: 800px; /* Set maximum width if needed */
+    margin: 0 auto; /* Center the container horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.task-item {
+    width: 100%; /* Set the width of each task item */
+    max-width: 600px; /* Set maximum width if needed */
+   
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    animation: slideIn 0.5s ease;
+}
+#task-item{
+background-color: rgba(199, 199, 206, 0.3);
+
+}
+.task-item p:first-child {
+    color:white;
+    background-color: #14111188; /* Set background color for the first p element (postdate) */
+    padding: 5px; /* Add padding to the postdate element */
+    border-radius: 3px; /* Add border radius for a rounded appearance */
+    margin-bottom: 8px; /* Adjust margin if needed */
+}
+.task-item p{
+    font-size: 20px;
+}
+.btn1,
+.btn2,
+.btn3 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 45px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.btn1:hover,
+.btn2:hover,
+.btn3:hover {
+    background-color: #45a049;
+    color:black /* Darker green */
+}
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

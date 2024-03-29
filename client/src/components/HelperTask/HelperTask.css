@@ -1,0 +1,99 @@
+/* HelperTask.css */
+
+/* Container styles */
+.helper-tasks {
+    padding: 20px;
+}
+
+/* Task list styles */
+.task-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Task box styles */
+.task-box {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: calc(33.33% - 20px); /* Adjust width based on number of columns */
+    transition: transform 0.3s ease-in-out;
+}
+
+.task-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Task details styles */
+.task-details {
+    color: #333333;
+}
+
+.task-details h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.task-details p {
+    margin-bottom: 5px;
+}
+
+/* Status styles */
+.status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.status-accepted {
+    background-color: #5cb85c;
+    color: #ffffff;
+}
+
+.status-rejected {
+    background-color: #d9534f;
+    color: #ffffff;
+}
+
+.status-pending {
+    background-color: #f0ad4e;
+    color: #ffffff;
+}
+
+/* Animation for task box */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.task-box {
+    animation: fadeInUp 0.5s ease-in-out;
+}
+.chat-button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    font-size:18px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-button:hover {
+    background-color: #0056b3;
+}
+#bu{
+    display: flex;
+    flex-direction: column;
+    
+}

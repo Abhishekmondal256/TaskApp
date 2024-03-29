@@ -1,0 +1,96 @@
+.post-task-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.post-task-form {
+    width: 400px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.5s forwards;
+}
+
+.post-task-form label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.post-task-form input[type="text"],
+.post-task-form input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.post-task-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+}
+.geoBtn{
+margin-right: 8rem !important;
+
+}
+.post-task-form button:hover {
+    background-color: #0056b3;
+}
+
+.geoBtn {
+    background-color: #28a745;
+}
+
+.geoBtn:hover {
+    background-color: #218838;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-enter {
+    opacity: 0;
+    transform: translateY(-50px);
+}
+
+.form-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.form-exit {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.form-exit-active {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+.post-task-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

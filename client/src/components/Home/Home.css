@@ -1,0 +1,90 @@
+/* Home.css */
+
+/* Button styling */
+.buttons {
+  margin-top: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 0.3s ease; 
+  animation: pulse 1s infinite alternate; 
+}
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+.btn-primary {
+  background-color: #007bff; /* Blue color */
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #6c757d; /* Gray color */
+  color: #fff;
+  margin-left: 10px;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  opacity: 0.6; /* Reduce opacity on hover */
+}
+
+/* Benefits section styling */
+.benefits {
+  padding: 50px 0;
+}
+.hero-content p{
+font-size:16px;
+
+}
+.benefits-content {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.benefit {
+  text-align: center;
+  max-width: 300px;
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Add transition effects */
+  background-color: #959a9e28;
+  color: black;
+}
+
+.benefit:hover {
+  transform: translateY(-5px); /* Move the element up slightly on hover */
+  background-color: #fff; /* Change background color on hover */
+}
+
+.benefit img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease; /* Add transition effect to the image */
+}
+
+.benefit:hover img {
+  transform: scale(1.1); /* Enlarge the image on hover */
+}
+
+.benefit p {
+  font-size: 24px;
+  line-height: 1.5;
+  color: black !important;
+  transition: color 0.3s ease; /* Add transition effect to the text color */
+}
+
+.benefit:hover p {
+  color: #007bff; /* Change text color on hover */
+}
