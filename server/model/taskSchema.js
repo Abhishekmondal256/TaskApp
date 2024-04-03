@@ -70,7 +70,12 @@ taskgivenid:{
         {
             type:String
         }
-    ]
+    ],
+    status: {
+        type: String,
+        enum: ['pending', 'accepted', 'rejected'],
+        default: 'pending'
+    }
 
 });
 const Task=mongoose.model('TASK',taskSchema);

@@ -73,8 +73,14 @@ navigate(`/usertask/${id}`);
                     <p><strong>Start Date: </strong>{task.startdate}</p>
                     <p><strong>Last Date:</strong> {task.lastdate}</p>
                     <p><strong>Cost Per Hr:</strong> {task.costperhr}</p>
-                    <button className='btn1' onClick={()=>{ setSelectedTask(task); setShowModal5(true)}}>Edit</button>
-                    <button className='btn2' onClick={()=>{ setSelectedTask(task); setShowModal6(true)}}>Delete</button>
+                    {task.status !== 'accepted' && (
+                            <>
+                                <button className='btn1' onClick={() => { setSelectedTask(task); setShowModal5(true) }}>Edit</button>
+                                <button className='btn2' onClick={() => { setSelectedTask(task); setShowModal6(true) }}>Delete</button>
+                            </>
+                        )}
+                    
+                   
                     <button className='btn3' onClick={() => handleapplication(task._id)}>Applications</button>
                     {/* Add more task details as needed */}
                     {/* <button onClick={() => handleViewApplications(task._id)}>View Applications</button> */}

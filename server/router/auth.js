@@ -8,6 +8,7 @@ const Message=require("../model/messageSchema");
 const bcrypt = require("bcryptjs");
 const multer=require("multer");
 const jwt=require("jsonwebtoken");
+const nodemailer=require("nodemailer");
 require("../db/conn");
 const cookieParser=require("cookie-parser");
 router.use(cookieParser());
@@ -45,11 +46,12 @@ router.post("/userregister",upload.single("profpic"),async(req,res)=>{
     }
 
     const user = new User({ name, email, phone, state, city,profpic, password, cpassword });
-    await user.save();
+    const userData=await user.save();
+console.log(userData);
 
-
-    res.status(201).json({ message: "user registered successfully" });
-
+    // res.status(201).json({ message: "user registered successfully" });
+    
+res.status(201).json({message:"Registration Successfull,plz Verify the email"});
 
 
 
@@ -59,6 +61,8 @@ router.post("/userregister",upload.single("profpic"),async(req,res)=>{
   }
   
 });
+
+
 router.post("/usersignin", async (req, res) => {
     try {
         let token;
@@ -649,20 +653,29 @@ router.post("/gettaskapplyid",async(req,res)=>{
   console.log(taskId);
   try {
     
-    const task = await Task.findById(taskId);
+    const task= await Task.findById(taskId);
     
     if (!task) {
         return res.status(404).json({ message: 'Task not found' });
     }
 
     // Extract taskapplyid from the task document
-    if (task.taskgivenid) {
-      taskApplyIds = task.taskapplyid.filter(id => !task.taskgivenid.includes(id) && !task.taskrejectedid.includes(id));
-  } else {
-      taskApplyIds = task.taskapplyid.filter(id => !task.taskrejectedid.includes(id));
-  }
-
-    res.json(taskApplyIds); // Send taskapplyid as JSON response
+  //   if (task.taskgivenid) {
+  //     taskApplyIds = task.taskapplyid.filter(id => !task.taskgivenid.includes(id) && !task.taskrejectedid.includes(id));
+  // } else {
+  //     taskApplyIds = task.taskapplyid.filter(id => !task.taskrejectedid.includes(id));
+  // }
+  const taskApplyIds = task.taskapplyid.map(id => {
+    let status = 'pending';
+    if (task.taskgivenid && task.taskgivenid.includes(id)) {
+        status = 'accepted';
+    } else if (task.taskrejectedid && task.taskrejectedid.includes(id)) {
+        status = 'rejected';
+    }
+    return { id, status };
+});
+  res.json({ taskApplyIds });
+    // Send taskapplyid as JSON response
 } catch (error) {
     console.error('Error fetching task apply IDs:', error);
     res.status(500).json({ message: 'Server error' });
@@ -673,12 +686,23 @@ router.post("/gettaskapplyid",async(req,res)=>{
 router.post("/helperdetails",async(req,res)=>{
   try {
   const { helperIds } = req.body;
-  const helpers = await Helper.find({ _id: { $in: helperIds } });
+  const helpers = await Helper.find({ _id: { $in: helperIds.map(item => item.id) } });
+  
   if (!helpers) {
     return res.status(404).json({ message: "Helpers not found" });
 }
-
-res.json(helpers);
+console.log(helperIds);
+const response = helpers.map(helper => {
+  const { _id, name, email, phone, state, city ,profpic} = helper;
+  
+  
+  const statusObj = helperIds.find(item =>item.id == _id);
+  
+  const status = statusObj ? statusObj.status : 'unknown';
+  return { _id, name, email, phone, state, city, profpic,status };
+});
+console.log(response);
+res.json(response);
 } catch (error) {
 console.error('Error fetching helper details:', error);
 res.status(500).json({ message: "Internal server error" });
@@ -698,6 +722,7 @@ router.put('/applyTask/:taskId/accept', async (req, res) => {
 
       // Update taskgivenid with the helperId
       task.taskgivenid = helperId;
+      task.status='accepted';
       await task.save();
 
       res.status(200).json({ message: 'Helper accepted successfully' });
@@ -719,6 +744,7 @@ router.put('/applyTask/:taskId/accept', async (req, res) => {
 
       // Update taskgivenid with the helperId
       task.taskgivenid = helperId;
+      
       await task.save();
 
       res.status(200).json({ message: 'Helper accepted successfully' });
@@ -741,7 +767,7 @@ router.put('/applyTask/:taskId/reject', async (req, res) => {
 
     // Add helperId to taskrejectedid array
     task.taskrejectedid.push(helperId);
-
+    task.status='rejected';
     // Save the updated task
     await task.save();
 

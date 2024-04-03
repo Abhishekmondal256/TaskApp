@@ -23,13 +23,17 @@ const Usertaskapplication=()=>{
             });
             
             const data = await response.json();
-            setTaskApplyIds(data);
+            console.log(data);
+            
+            setTaskApplyIds(data.taskApplyIds);
+            console.log(data.taskApplyIds);
         } catch (error) {
             console.error('Error fetching task apply IDs:', error);
         }
     };
     const fetchHelperDetails = async () => {
         try {
+            // const helperIds = taskApplyIds.map(item => item.id);
             const response = await fetch('/helperdetails', {
                 method: 'POST',
                 headers: {
@@ -43,7 +47,7 @@ const Usertaskapplication=()=>{
             console.error('Error fetching helper details:', error);
         }
     };
-
+console.log(helperDetails);
     useEffect(() => {
         fetchTaskApplyIds();
     }, [id]);
@@ -74,6 +78,9 @@ const Usertaskapplication=()=>{
                 console.log('Helper accepted successfully:', helperId);
                 window.alert("task accepted sucessfully");
                 // Perform any additional actions after successful acceptance
+               
+
+
             } else {
                 console.error('Error accepting helper:', response.statusText);
             }
@@ -81,7 +88,8 @@ const Usertaskapplication=()=>{
             console.error('Error accepting helper:', error);
         }
     };
-
+    
+console.log(helperDetails);
     const handleReject = async(helperId) => {
         try {
             const response = await fetch(`/applyTask/${id}/reject`, {
@@ -109,6 +117,7 @@ return(
             <h2>User Task Applications</h2>
             <div className="application-container">
                 {helperDetails.map(helper => (
+                   
                     <div key={helper._id} className="application-box">
                         <div className="helper-details">
                         <img src={"http://localhost:5000/public/images/"+helper.profpic} alt="Profile" className="profile-pic" />
@@ -118,11 +127,18 @@ return(
                             <p><strong>Phone:</strong> {helper.phone}</p>
                             <p><strong>State:</strong> {helper.state}</p>
                             <p><strong>City:</strong> {helper.city}</p>
+                            <p><strong>Status: </strong><p className={`status status-${helper.status}`}>{helper.status}</p></p>
                         </div>
                         <div className="action-buttons">
                             <button onClick={() => handleChat(helper._id)}>Chat</button>
+                            {helper.status === 'pending' && (
+                                    <>
                             <button onClick={() => handleAccept(helper._id)}>Accept</button>
                             <button onClick={() => handleReject(helper._id)}>Reject</button>
+                            
+                                        <button onClick={() => handleReject(helper._id)}>Reject</button>
+                                    </>
+                                      )}
                         </div>
                     </div>
                 ))}

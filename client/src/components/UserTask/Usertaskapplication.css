@@ -52,3 +52,24 @@ h2{
 .action-buttons button:hover {
     background-color: #0056b3;
 }
+.status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.status-accepted {
+    background-color: #5cb85c;
+    color: #ffffff;
+}
+
+.status-rejected {
+    background-color: #d9534f;
+    color: #ffffff;
+}
+
+.status-pending {
+    background-color: #f0ad4e;
+    color: #ffffff;
+}
